@@ -8,9 +8,17 @@
 			<cookies-p v-if="found[anagram]"> Anagramme trouvé: {{ anagram }} ! </cookies-p>
 
 			<div v-if="!found[anagram]">
-				<input @keyup="tryWord($event.target.value, anagram)">
+				<cookies-p> {{ wordHint(anagram) }}</cookies-p>
+				<input @keyup="tryWord($event.target.value, i)">
 			</div>
 			<br>
+		</div>
+
+		<div v-if="Object.keys(found).length === anagrams.length">
+			<cookies-p style="text-align:center">
+				🎉 C'est gagné pour aujourd'hui ! 🥳 <br>
+				<button @click="share()"> Partager </button>
+			</cookies-p>
 		</div>
 	</cookies-panel>
 </div>
