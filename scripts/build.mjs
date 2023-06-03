@@ -29,7 +29,7 @@ async function buildVueTemplates() {
 	}
 }
 
-async function bundleFrontend() {
+async function buildFrontend() {
 	await runTask("Bundle frontend", $`
 		npx --no-install esbuild --bundle index.ts \
 			--define:__VUE_OPTIONS_API__=false \
@@ -42,14 +42,27 @@ async function bundleFrontend() {
 	`);
 }
 
+async function test() {
+	await runTask("Bundle test", $`
+		npx --no-install esbuild --bundle test.ts \
+			--platform=node \
+			--outfile=test.js \
+			--minify \
+			--tree-shaking=true \
+			--sourcemap
+	`);
+
+	await runTask("Test", $`node --enable-source-maps test.js`);
+}
+
 async function checkFrontendTypings() {
 	await runTask("Checking frontend typings", $`npx tsc`);
 }
 
+await buildVueTemplates();
+
 await Promise.all([
-	buildVueTemplates()
-		.then(() => Promise.all([
-			bundleFrontend(),
-			checkFrontendTypings()
-		]))
+	buildFrontend(),
+	checkFrontendTypings(),
+	test()
 ]);

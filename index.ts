@@ -2,8 +2,13 @@ import { createApp, ref, Ref, onUnmounted/*, computed*/ } from "vue";
 import { render } from "./template";
 import { wordOfTheDay$ } from "./wordOfTheDay";
 import { findAnagrams } from "./findAnagrams";
-import { frenchWordList } from "./frenchWordList";
+import { printNextAnagrams } from "./printNextAnagrams";
+import { printWordList } from "./printWordList";
 import "cookies-ds";
+
+globalThis.shufflet_printNextAnagrams = printNextAnagrams;
+globalThis.shufflet_printWordList = printWordList;
+globalThis.shufflet_findAnagrams = findAnagrams;
 
 export const app = createApp({
 	setup() {
@@ -13,7 +18,7 @@ export const app = createApp({
 
 		const wordOfTheDaySub = wordOfTheDay$.subscribe(function(value) {
 			wordOfTheDay.value = value;
-			anagrams.value = findAnagrams(value, frenchWordList);
+			anagrams.value = findAnagrams(value);
 		});
 
 		function tryWord(word, anagram) {
