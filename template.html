@@ -17,7 +17,7 @@
 		<div v-if="Object.keys(found).length === anagrams.length">
 			<cookies-p style="text-align:center">
 				🎉 C'est gagné pour aujourd'hui ! 🥳 <br>
-				<button @click="share()"> Partager </button>
+				<cookies-button title="Copier dans le presse-papier" @click="share()"> Partager </cookies-button>
 			</cookies-p>
 		</div>
 	</cookies-panel>
