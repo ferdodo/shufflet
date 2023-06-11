@@ -8,7 +8,7 @@ export function wordHint(str: string, percentage: number = 0.15): string {
 
   const firstChars = str.substring(0, firstCharsCount);
   const lastChars = str.substring(str.length - lastCharsCount);
-  const middleChars = '_'.repeat(str.length - firstCharsCount - lastCharsCount);
+  const middleChars = 'ˍ'.repeat(str.length - firstCharsCount - lastCharsCount);
 
   return `${firstChars}${middleChars}${lastChars}`;
 }
